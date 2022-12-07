@@ -1,0 +1,22 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "ZainpayAndroidLibrary"
+include ':app'
+include ':zainpay_android_library'
+include ':check_balance'
+include ':verify_transaction'
+include ':transfer_fund'
+include ':bank_list'
+include ':transfer_name_enquiry'
