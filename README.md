@@ -3,7 +3,7 @@
 ## Installation
 
 ```
-composer require zainpay/sdk
+implementation 'com.github.ismailukman:zainpay_android_sdk:-f34e1541eb-1'
 ```
 
 # Usage
