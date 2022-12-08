@@ -28,7 +28,5 @@ class MainActivity : AppCompatActivity() {
         //var nameEnquiryPayload = utilMethods.getNameEnquiry(params)
 
 
-
-
     }
 }

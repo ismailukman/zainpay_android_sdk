@@ -103,8 +103,6 @@ class ZainpayAndroidLibrary(private val context: Context) {
         return jsonObject
     }
 
-
-
     fun generateAuth() : JSONObject? {
         val jsonObject: JSONObject?
         urlApp = central.urlAuth

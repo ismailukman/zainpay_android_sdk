@@ -11,11 +11,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/bank_list" />
-            <option value="$PROJECT_DIR$/check_balance" />
-            <option value="$PROJECT_DIR$/transfer_fund" />
-            <option value="$PROJECT_DIR$/transfer_name_enquiry" />
-            <option value="$PROJECT_DIR$/verify_transaction" />
             <option value="$PROJECT_DIR$/zainpay_android_library" />
           </set>
         </option>
