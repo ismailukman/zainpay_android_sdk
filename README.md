@@ -36,9 +36,10 @@ The idea of overriding is brought to you for safe usage of this SDK within **asy
  19. Merchant Transactions 
 
 **Card Endpoints**
+
  20. Initialize Payment 
  21. Test Cards 
  22. Get Card Payment Status
 
-##Reference
+## Reference
 [Official Zainpay Documentation](https://zainpay.ng/developers)
