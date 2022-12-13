@@ -1,4 +1,4 @@
-package com.itcglobal.create_virtual_account
+package com.itcglobal.zainpay_android_library
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

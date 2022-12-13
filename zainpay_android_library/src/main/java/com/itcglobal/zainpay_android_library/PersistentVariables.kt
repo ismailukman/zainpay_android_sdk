@@ -1,4 +1,4 @@
-package com.itcglobal.zainpayandroidlibrary;
+package com.itcglobal.zainpay_android_library;
 
 import android.content.Context;
 import android.content.Context.MODE_PRIVATE

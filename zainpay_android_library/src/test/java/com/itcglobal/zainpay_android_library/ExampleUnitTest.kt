@@ -1,4 +1,4 @@
-package com.itcglobal.create_virtual_account
+package com.itcglobal.zainpay_android_library
 
 import org.junit.Test
 
