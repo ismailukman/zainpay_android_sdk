@@ -42,4 +42,4 @@ The idea of overriding is brought to you for safe usage of this SDK within **asy
  22. Get Card Payment Status
 
 ## Reference
-[Official Zainpay Documentation](https://zainpay.ng/developers)
+[Official Zainpay API Documentation](https://zainpay.ng/developers)
