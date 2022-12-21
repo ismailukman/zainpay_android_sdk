@@ -107,7 +107,7 @@ Server response for this method returns a json Object with a `reply.code`.
 
 ## License
 
-By contributing to the Zainpay Android library, you agree that your contributions will be licensed under its [MIT license](/LICENSE).
+By contributing to the Zainpay Android library, you agree that your contributions will be licensed under its [MIT license](/License.md)
  
 
 ## Reference
