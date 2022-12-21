@@ -10,6 +10,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
@@ -138,17 +139,52 @@ class ZainpayAndroidLibrary(private val context: Context) {
 //        "status": true
 //    }
 
-    fun buildCreateSettlement(name:String,zainboxCode: String, scheduleType: String, schedulePeriod: String, accountNumber:String,
-                              bankCode:String, percentage:String, status:String): JSONObject {
+    fun buildCreateSettlement(name:String,zainboxCode: String, scheduleType: String, schedulePeriod: String, accNo1:String,
+                              bankCode1:String, percent1:String, status:String): JSONObject {
         val jsonObject = JSONObject()
+        val bodyArray = JSONArray()
+
         jsonObject.accumulate("name", name )
         jsonObject.accumulate("zainboxCode",  zainboxCode)
         jsonObject.accumulate("scheduleType",  scheduleType)
         jsonObject.accumulate("schedulePeriod",  schedulePeriod)
-        jsonObject.accumulate("accountNumber",  accountNumber)
-        jsonObject.accumulate("bankCode",  bankCode)
-        jsonObject.accumulate("percentage",  percentage)
+
+        val element1 = JSONObject()
+        element1.accumulate("accountNumber", accNo1)
+        element1.accumulate("bankCode", bankCode1)
+        element1.accumulate("percentage", percent1)
+
+        bodyArray.put(element1)
+        jsonObject.put("settlementAccountList", bodyArray)
         jsonObject.accumulate("status",  status)
+
+        return jsonObject
+    }
+
+    fun buildCreateSettlement(name:String,zainboxCode: String, scheduleType: String, schedulePeriod: String, accNo1:String,
+                              bankCode1:String, percent1:String, accNo2:String, bankCode2:String, percent2:String, status:String): JSONObject {
+        val jsonObject = JSONObject()
+        val bodyArray = JSONArray()
+
+        jsonObject.accumulate("name", name )
+        jsonObject.accumulate("zainboxCode",  zainboxCode)
+        jsonObject.accumulate("scheduleType",  scheduleType)
+        jsonObject.accumulate("schedulePeriod",  schedulePeriod)
+
+        val element1 = JSONObject()
+        element1.accumulate("accountNumber", accNo1)
+        element1.accumulate("bankCode", bankCode1)
+        element1.accumulate("percentage", percent1)
+        val element2 = JSONObject()
+        element2.accumulate("accountNumber", accNo2)
+        element2.accumulate("bankCode", bankCode2)
+        element2.accumulate("percentage", percent2)
+
+        bodyArray.put(element1)
+        bodyArray.put(element2)
+        jsonObject.put("settlementAccountList", bodyArray)
+        jsonObject.accumulate("status",  status)
+
         return jsonObject
     }
 
@@ -616,13 +652,48 @@ class ZainpayAndroidLibrary(private val context: Context) {
         return jsonObject
     }
 
+    fun createSettlement(token: String, name: String, zainboxCode: String, scheduleType: String, schedulePeriod: String,
+                         accountNumber:String, bankCode:String, percentage:String, accountNumber2:String, bankCode2:String, percentage2:String,
+                         status: String) : JSONObject? {
+        val jsonObject: JSONObject?
+        urlApp = central.urlCreateSettlement
+        val myJSONObject = buildCreateSettlement(name, zainboxCode, scheduleType, schedulePeriod,accountNumber, bankCode, percentage,
+            accountNumber2, bankCode2, percentage2, status)
+        val requestBody = myJSONObject.toString().toRequestBody(mediaType)
+        val request = Request.Builder()
+            .addHeader("Authorization", "Bearer $token")
+            .method("POST", requestBody)
+            .url(urlApp)
+            .build()
+        //Log.d("create virtual acc", "${urlApp}$id")
+        jsonObject = try {
+            val reply = client.newCall(request).execute()
+            val result = reply.body!!.string()
+            when (reply.code) {
+                201 -> {
+                    JSONObject(result)
+                }
+                200 -> {
+                    JSONObject(result)
+                }
+                else -> {
+                    JSONObject(result)
+                }
+            }
+        } catch (e: IOException){
+            e.printStackTrace()
+            null
+        }
+        return jsonObject
+    }
+
     ///zainbox/settlement?zainboxCode=7eOQfvaVHvcds05eWH4t
-    fun getSettlement(token: String, zainboxCodeName:String) : JSONObject? {
+    fun getSettlement(token: String, zainboxCode:String) : JSONObject? {
         val jsonObject: JSONObject?
         val request = Request.Builder()
             .addHeader("Authorization", "Bearer $token")
             .method("GET", null)
-            .url("${central.urlGetSettlement}?zainboxCode=$zainboxCodeName")
+            .url("${central.urlGetSettlement}?zainboxCode=$zainboxCode")
             .build()
         jsonObject = try {
             val reply = client.newCall(request).execute()
@@ -679,12 +750,12 @@ class ZainpayAndroidLibrary(private val context: Context) {
         return jsonObject
     }
 
-    fun getZainboxTnxHistory(token: String, txnRef:String) : JSONObject? {
+    fun getZainboxTnxHistory(token: String, zainboxCode:String) : JSONObject? {
         val jsonObject: JSONObject?
         val request = Request.Builder()
             .addHeader("Authorization", "Bearer $token")
             .method("GET", null)
-            .url("${central.urlGetZainboxTnxHistory}/$txnRef")
+            .url("${central.urlGetZainboxTnxHistory}/$zainboxCode")
             .build()
         jsonObject = try {
             val reply = client.newCall(request).execute()
@@ -711,12 +782,12 @@ class ZainpayAndroidLibrary(private val context: Context) {
     }
 
      // /zainbox/transfer/deposit/summary/THbfnDvK5o?dateFrom=2022-02&dateTo=2022-03
-    fun getTotalPayementZainbox(token: String, txnRef:String, dateFrom:String, dateTo:String) : JSONObject? {
+    fun getTotalPayementZainbox(token: String, zainboxCode:String, dateFrom:String, dateTo:String) : JSONObject? {
         val jsonObject: JSONObject?
         val request = Request.Builder()
             .addHeader("Authorization", "Bearer $token")
             .method("GET", null)
-            .url("${central.urlGetTotalPaymentZainbox}/${txnRef}?dateFrom=$dateFrom&dateTo=$dateTo")
+            .url("${central.urlGetTotalPaymentZainbox}/${zainboxCode}?dateFrom=$dateFrom&dateTo=$dateTo")
             .build()
         jsonObject = try {
             val reply = client.newCall(request).execute()
