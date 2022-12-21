@@ -55,7 +55,7 @@ The idea of overriding is brought to you for safe usage of this SDK within **asy
 
 1. Add the dependency to your project. In your `build.gradle`, file 
 ```
-implementation 'com.github.ismailukman:zainpay_android_sdk:1.2'
+implementation 'com.github.ismailukman:zainpay_android_sdk:1.3'
 ```
 
 ## Usage
